@@ -1,5 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
+
+declare global {
+  namespace Express {
+    interface Request {
+      data?: jwt.JwtPayload;
+    }
+  }
+}
 
 // Define a middleware function to validate JWT tokens
 export const jwtMiddleware = (
@@ -15,13 +23,20 @@ export const jwtMiddleware = (
   }
 
   // Verify and decode the token
-  jwt.verify(token, "your_secret_key", (err: any, decoded: any) => {
-    if (err) {
-      return res.status(403).json({ message: "Failed to authenticate token" });
-    }
+  jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    (err: jwt.VerifyErrors | null, decoded: jwt.JwtPayload | undefined) => {
+      if (err) {
+        return res
+          .status(403)
+          .json({ message: "Failed to authenticate token" });
+      }
 
-    // Store the decoded token in the request for further use
-    req.data = decoded;
-    next();
-  });
+      // Store the decoded token in the request for further use
+      req.data = decoded;
+      console.log(req.data);
+      next();
+    }
+  );
 };

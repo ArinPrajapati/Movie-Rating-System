@@ -1,7 +1,11 @@
 import express = require("express");
 const router = express.Router();
 import { jwtMiddleware } from "../middleware/jwtMiddleware";
-import { createAdmin } from "../controllers/adminControllers";
+import {
+  createAdmin,
+  currentadmin,
+  loginUser,
+} from "../controllers/adminControllers";
 
 router.get("/all", (req, res) => {
   console.log("hello");
@@ -9,8 +13,8 @@ router.get("/all", (req, res) => {
 
 router.post("/create", createAdmin);
 
-router.post("/login", (req, res) => {
-  console.log("login post");
-});
+router.post("/login", loginUser);
+
+router.get("/current", jwtMiddleware, currentadmin);
 
 module.exports = router;
