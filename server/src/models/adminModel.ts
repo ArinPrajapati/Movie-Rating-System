@@ -1,18 +1,24 @@
-import mongoose = require("mongoose");
+import mongoose, { Document, Schema } from "mongoose";
 
-const adminSchema = new mongoose.Schema({
+export interface AdminData extends Document {
+  adminName: string;
+  adminPassword: string;
+  adminSecret: string;
+}
+
+const adminSchema = new Schema<AdminData>({
   adminName: {
     type: String,
-    require: ["true", "please enter adminName"],
+    required: [true, "Please enter adminName"],
   },
   adminPassword: {
     type: String,
-    require: ["true", "please enter admin password"],
+    required: [true, "Please enter admin password"],
   },
-  adminScrect: {
+  adminSecret: {
     type: String,
-    require: ["true", "please enter adim Screct"],
+    required: [true, "Please enter admin Secret"],
   },
 });
 
-module.exports = mongoose.model("Admin", adminSchema);
+export default mongoose.model<AdminData>("Admindata", adminSchema);

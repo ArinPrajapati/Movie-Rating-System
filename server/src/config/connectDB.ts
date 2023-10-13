@@ -1,24 +1,18 @@
-import { MongoClient } from "mongodb";
 import * as dotenv from "dotenv";
 dotenv.config();
-
-const url = process.env.DB_STRING; // Update with your MongoDB connection string
-const dbName = process.env.DB_NAME; // Update with your database name
-
-export async function connectToDatabase() {
+const mongoose = require("mongoose");
+const connectDB = async () => {
   try {
-    const client = new MongoClient(url);
-    await client.connect();
-    const db = client.db(dbName);
-
-    console.log("Connected to MongoDB");
-    console.log(db.databaseName);
-    console.log(db.admin);
-    return db;
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    throw error;
+    const connnect = await mongoose.connect(process.env.DB_STRING);
+    console.log(
+      "database connect: ",
+      connnect.connection.host,
+      connnect.connection.name
+    );
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
   }
-}
+};
 
-export default connectToDatabase;
+export default connectDB;

@@ -1,7 +1,7 @@
 export interface admin {
   adminName: string;
   adminPassword: string;
-  adminScrect: string;
+  adminSecret: string;
 }
 
 declare namespace NodeJS {
