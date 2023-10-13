@@ -1,5 +1,7 @@
-const express = require("express");
+import connectToDatabase from "./config/connectDB";
 
+const express = require("express");
+connectToDatabase();
 const app = express();
 const port = 3000;
 

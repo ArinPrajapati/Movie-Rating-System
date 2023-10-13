@@ -3,3 +3,12 @@ export interface admin {
   adminPassword: string;
   adminScrect: string;
 }
+
+declare namespace NodeJS {
+  export interface ProcessEnv {
+    DB_STRING: string;
+    SR_PORT: string;
+    DB_NAME: string;
+    JWT_SECRET: string;
+  }
+}
