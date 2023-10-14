@@ -12,3 +12,12 @@ declare namespace NodeJS {
     JWT_SECRET: string;
   }
 }
+
+export interface movies {
+  title: string;
+  description: string;
+  releaseDate: DateConstructor;
+  actors: string;
+  genre: string;
+  director: string;
+}

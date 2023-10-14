@@ -7,10 +7,6 @@ import {
   loginUser,
 } from "../controllers/adminControllers";
 
-router.get("/all", (req, res) => {
-  console.log("hello");
-});
-
 router.post("/create", createAdmin);
 
 router.post("/login", loginUser);
