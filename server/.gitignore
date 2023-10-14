@@ -13,6 +13,7 @@
 .project
 .classpath
 .c9/
+.env
 *.launch
 .settings/
 *.sublime-workspace
@@ -38,10 +39,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.env
-.env.example
-.env.local
-.env.staging
 # Ignore system and temporary files
 .DS_Store
 Thumbs.db
@@ -70,7 +67,7 @@ npm-debug.log
 yarn-error.log
 yarn-error.log.*
 # Ignore runtime and compiled files
-.env
+*.env
 *.class
 *.dll
 *.exe
@@ -107,6 +104,4 @@ yarn-error.log.*
 # Ignore user-specific files
 sensitive_file.txt
 secret_key.ini
-server/.env
-server/.env
-.env
+/.env
