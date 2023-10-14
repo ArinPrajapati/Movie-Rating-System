@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { movies } from "../utils/types";
 import Movies from "../models/moiveModels";
+import moiveModels from "../models/moiveModels";
 const asyncHandler = require("express-async-handler");
 
 //@route post- /movies/create
@@ -97,6 +98,9 @@ const findAMoive = asyncHandler(async (req: Request, res: Response) => {
 
 const deleteMovie = asyncHandler(async (req: Request, res: Response) => {
   try {
+    if (!req.data.admin.adminName) {
+      return res.status(401).json({ message: "Only admin can update movies" });
+    }
     const id = req.params.id;
     const delMovie = await Movies.deleteOne({ title: id });
 
@@ -110,4 +114,56 @@ const deleteMovie = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { createMovie, getAllMovies, findAMoive, deleteMovie };
+//@route put - /movies/update/:id
+//@desc Update a movie
+//@access only admin
+
+const updateMovie = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    console.log(req.data.admin.adminName);
+    if (!req.data.admin.adminName) {
+      return res.status(401).json({ message: "Only admin can update movies" });
+    }
+
+    const id = req.params.id;
+    const movieToUpdate = await Movies.findOne({ title: id });
+
+    if (!movieToUpdate) {
+      return res.status(404).json({ error: "Movie not found" });
+    }
+
+    // You can update the movie fields here based on your requirements.
+    // For example, you can update the movie's title, description, etc.
+    if (req.body.title) {
+      movieToUpdate.title = req.body.title;
+    }
+    if (req.body.description) {
+      movieToUpdate.description = req.body.description;
+    }
+    if (req.body.releaseDate) {
+      movieToUpdate.description = req.body.releaseDate;
+    }
+    if (req.body.actors) {
+      movieToUpdate.actors = req.body.actors;
+    }
+    if (req.body.genre) {
+      movieToUpdate.genre = req.body.genre;
+    }
+    if (req.body.director) {
+      movieToUpdate.director = req.body.director;
+    }
+
+    const updatedMovie = await movieToUpdate.save();
+
+    if (updatedMovie) {
+      return res.status(200).json(updatedMovie);
+    } else {
+      return res.status(400).json({ error: "Movie data is not valid" });
+    }
+  } catch (error) {
+    console.error("Error updating movie:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+export { createMovie, getAllMovies, findAMoive, deleteMovie, updateMovie };

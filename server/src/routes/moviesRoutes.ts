@@ -7,6 +7,7 @@ import {
   deleteMovie,
   findAMoive,
   getAllMovies,
+  updateMovie,
 } from "../controllers/movieControllers";
 
 router.get("/all", getAllMovies);
@@ -15,10 +16,8 @@ router.get("/find/:id", findAMoive);
 
 router.post("/create", jwtMiddleware, createMovie);
 
-router.delete("/delete/:id", deleteMovie);
+router.delete("/delete/:id", jwtMiddleware, deleteMovie);
 
-router.patch("/update/:id", (req, res) => {
-  res.json(`the id is for update is ${req.params.id}`);
-});
+router.patch("/update/:id", jwtMiddleware, updateMovie);
 
 module.exports = router;
