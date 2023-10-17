@@ -14,6 +14,14 @@ app.use("/admin", require("./routes/adminRoute"));
 //@desc this is for CURD optration of movies
 app.use("/movies", require("./routes/moviesRoutes"));
 
+//@route user
+//@desc this is for the user creation and verifly the verify
+app.use("/user", require("./routes/userRoutes"));
+
+//@router rating
+//@desc this for rating function for only user
+app.user("/rate", require("./"));
+
 errorhandler();
 
 app.listen(port, () => {

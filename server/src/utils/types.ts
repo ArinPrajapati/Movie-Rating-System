@@ -21,3 +21,9 @@ export interface movies {
   genre: string;
   director: string;
 }
+
+export interface user {
+  name: string;
+  password: string;
+  email: string;
+}

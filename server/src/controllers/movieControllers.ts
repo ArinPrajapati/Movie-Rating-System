@@ -96,6 +96,10 @@ const findAMoive = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+//@route delete -/movies/delete/:id
+//@desc Delete a moive
+//@access only admin
+
 const deleteMovie = asyncHandler(async (req: Request, res: Response) => {
   try {
     if (!req.data.admin.adminName) {
@@ -114,7 +118,7 @@ const deleteMovie = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-//@route put - /movies/update/:id
+//@route patch - /movies/update/:id
 //@desc Update a movie
 //@access only admin
 
@@ -132,8 +136,6 @@ const updateMovie = asyncHandler(async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Movie not found" });
     }
 
-    // You can update the movie fields here based on your requirements.
-    // For example, you can update the movie's title, description, etc.
     if (req.body.title) {
       movieToUpdate.title = req.body.title;
     }

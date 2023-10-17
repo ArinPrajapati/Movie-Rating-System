@@ -57,11 +57,11 @@ const createAdmin = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-// @route is post /admin/create
-//@use create an admin account
+// @route is post /admin/login
+//@use logn an admin account
 // @access only admin
 
-const loginUser = asyncHandler(async (req: Request, res: Response) => {
+const loginAdmin = asyncHandler(async (req: Request, res: Response) => {
   try {
     if (!req.body) {
       return res
@@ -91,7 +91,10 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
       res.status(401);
       throw new Error("entery or password is wrong");
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error login admin:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 //@desc test for jwt
@@ -102,4 +105,4 @@ const currentadmin = asyncHandler(async (req, res) => {
   res.json(req.data);
 });
 
-export { createAdmin, loginUser, currentadmin };
+export { createAdmin, loginAdmin, currentadmin };

@@ -4,12 +4,12 @@ import { jwtMiddleware } from "../middleware/jwtMiddleware";
 import {
   createAdmin,
   currentadmin,
-  loginUser,
+  loginAdmin,
 } from "../controllers/adminControllers";
 
 router.post("/create", createAdmin);
 
-router.post("/login", loginUser);
+router.post("/login", loginAdmin);
 
 router.get("/current", jwtMiddleware, currentadmin);
 
